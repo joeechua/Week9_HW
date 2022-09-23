@@ -1,98 +1,98 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    
-    "background":"white",
-    "vconcat": [
-      {
-        "title": {"text":"Fortune 500 Companies in Each State","fontSize":25,"font": "Serif"},
-        "width": "container",
-        "height": 500,
-        "projection": {"type": "albersUsa"},
-          
-        "layer": [
-          {
-            "params": [
-              {
-                "name": "highlight",
-                "select": {"type": "point", "on": "mouseover"}
-              }
-            ],
-            "data": {
-                "url": "https://joeechua.github.io/Week9_HW/US_Map.json",
-                "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
-            },
-            
-            "mark": {
-              "type": "geoshape", "stroke": "black",
-              "strokeWidth": 0.2
-            },
-            "transform": [
-                {
-                    "lookup": "properties.STATE_NAME",
-                    "from": {
-                      "data": {
-                        "url": "https://joeechua.github.io/Week9_HW/fortune_500_state_count.csv",
-                        "format": {"parse": {"Number of Companies": "number", "State":"string"}}                      
-                      },
-                      "key": "State",
-                      "fields": ["Number of Companies"]
-                    }
-                  }
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   
-            ],
-            "encoding": {
-                "color": {
-                    "field": "Number of Companies",
-                    "type": "quantitative",
-                    "scale": {
-                      "type": "threshold",
-                      "domain": [1,10,20,30,40,50],
-                      "range": ["#b8d5cd","#8abaae", "#5ca08e", "#2e856e", "#006a4e","#163832"]
-                      },
-                      "legend": {
-                        
-                        "title": "Number of Companies",
-                        "titleFontSize":15,
-                        "titleAnchor":"end",
-                        "direction":"horizontal", 
-                        "orient":"top-right", 
-                        "labelFontSize": 15,
-                        "titleLimit":1000
-                      
-                    }
-                  },
-                  "strokeWidth": {
-                    "condition": [
-                      {
-                        "param": "highlight",
-                        "empty": false,
-                        "value": 1.5
-                      }
-                    ],
-                    "value": 0.3
-                  },
-                  "opacity": {
-                    "condition": {"param": "highlight", "value": 1},
-                    "value": 0.7
-                  },
-  
-              "tooltip": [
-                {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-                {"field": "Number of Companies", "type": "nominal","format":"," ,"title": "Number of Companies"}
-                
-              ]
-            }
-          }
+  "background":null,
+  "vconcat": [
+    {
+      "title": {"text":"Fortune 500 Companies in Each State","fontSize":25,"font": "Serif"},
+      "width": "container",
+      "height": 500,
+      "projection": {"type": "albersUsa"},
         
-           
-        ]
-      }
-    ],
-        "config": {
-          "style": {
-              "cell": {
-                  "stroke": null
-              }
+      "layer": [
+        {
+          "params": [
+            {
+              "name": "highlight",
+              "select": {"type": "point", "on": "mouseover"}
+            }
+          ],
+          "data": {
+              "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
+              "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
+          },
+          
+          "mark": {
+            "type": "geoshape", "stroke": "black",
+            "strokeWidth": 0.2
+          },
+          "transform": [
+              {
+                  "lookup": "properties.STATE_NAME",
+                  "from": {
+                    "data": {
+                      "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_state_count.csv",
+                      "format": {"parse": {"Number of Companies": "number", "State":"string"}}                      
+                    },
+                    "key": "State",
+                    "fields": ["Number of Companies"]
+                  }
+                }
+
+          ],
+          "encoding": {
+              "color": {
+                  "field": "Number of Companies",
+                  "type": "quantitative",
+                  "scale": {
+                    "type": "threshold",
+                    "domain": [1,10,20,30,40,50],
+                    "range": ["#b8d5cd","#8abaae", "#5ca08e", "#2e856e", "#006a4e","#163832"]
+                    },
+                    "legend": {
+                      
+                      "title": "Number of Companies",
+                      "titleFontSize":15,
+                      "titleAnchor":"end",
+                      "direction":"horizontal", 
+                      "orient":"top-right", 
+                      "labelFontSize": 15,
+                      "titleLimit":1000
+                    
+                  }
+                },
+                "strokeWidth": {
+                  "condition": [
+                    {
+                      "param": "highlight",
+                      "empty": false,
+                      "value": 1.5
+                    }
+                  ],
+                  "value": 0.3
+                },
+                "opacity": {
+                  "condition": {"param": "highlight", "value": 1},
+                  "value": 0.7
+                },
+
+            "tooltip": [
+              {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+              {"field": "Number of Companies", "type": "nominal","format":"," ,"title": "Number of Companies"}
+              
+            ]
           }
-      }
-  }
+        }
+      
+         
+      ]
+    }
+  ],
+      "config": {
+        "style": {
+            "cell": {
+                "stroke": null
+            }
+        }
+    }
+}
