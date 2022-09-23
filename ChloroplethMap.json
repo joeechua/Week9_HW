@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     
-    "background":null,
+    "background":"white",
     "vconcat": [
       {
         "title": {"text":"Fortune 500 Companies in Each State","fontSize":25,"font": "Serif"},
