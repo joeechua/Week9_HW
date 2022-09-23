@@ -1,96 +1,55 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "vconcat": [
+  "width": 700,
+  "height": 400,
+  "title": {"text":"Total Profits",  "fontSize":20},
+  "data": {
+    "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_USA.csv"
+  },
+  "transform": [
     {
-      "title": {"text":"Fortune 500 Companies in Each State","fontSize":25,"font": "Serif"},
-      "width": 500,
-      "height": 300,
-      "projection": {"type": "albersUsa"},
-        
-      "layer": [
-        {
-          "params": [
-            {
-              "name": "highlight",
-              "select": {"type": "point", "on": "mouseover"}
-            }
-          ],
-          "data": {
-              "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
-              "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
-          },
-          
-          "mark": {
-            "type": "geoshape", "stroke": "black",
-            "strokeWidth": 0.2
-          },
-          "transform": [
-              {
-                  "lookup": "properties.STATE_NAME",
-                  "from": {
-                    "data": {
-                      "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_state_count.csv",
-                      "format": {"parse": {"Number of Companies": "number", "State":"string"}}                      
-                    },
-                    "key": "State",
-                    "fields": ["Number of Companies"]
-                  }
-                }
-
-          ],
-          "encoding": {
-              "color": {
-                  "field": "Number of Companies",
-                  "type": "quantitative",
-                  "scale": {
-                    "type": "threshold",
-                    "domain": [1,10,20,30,40,50],
-                    "range": ["#b8d5cd","#8abaae", "#5ca08e", "#2e856e", "#006a4e","#163832"]
-                    },
-                    "legend": {
-                      
-                      "title": "Number of Companies",
-                      "titleFontSize":15,
-                      "titleAnchor":"end",
-                      "direction":"horizontal", 
-                      "orient":"top-right", 
-                      "labelFontSize": 15,
-                      "titleLimit":1000
-                    
-                  }
-                },
-                "strokeWidth": {
-                  "condition": [
-                    {
-                      "param": "highlight",
-                      "empty": false,
-                      "value": 1.5
-                    }
-                  ],
-                  "value": 0.3
-                },
-                "opacity": {
-                  "condition": {"param": "highlight", "value": 1},
-                  "value": 0.7
-                },
-
-            "tooltip": [
-              {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-              {"field": "Number of Companies", "type": "nominal","format":"," ,"title": "Number of Companies"}
-              
-            ]
-          }
-        }
-      
-         
-      ]
-    }
+      "lookup": "hqstate",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
+          "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
+        },
+        "key": "properties.STATE_NAME"
+      },
+        "as": "state"
+    }, {
+    "joinaggregate": [{
+      "op": "sum",
+      "field": "profits",
+      "as": "TotalCount"
+    }],"groupby": ["hqstate"]}
   ],
-      "config": {
-        "style": {
-            "cell": {
-                "stroke": null
-            }
-        }
-    }
+  "projection": {"type": "albersUsa"},
+  "mark": "geoshape",
+  "encoding": {
+    "shape": {"field": "state", "type": "geojson"},
+    
+    "color": {"field": "TotalCount", "type": "quantitative",
+              "legend": {
+                
+                "title": "Total Profits in 100 Million USD",
+                "titleFontSize":11,
+                "titleAnchor":"start",
+                "direction":"horizontal", 
+                "orient":"bottom-left", 
+                "labelFontSize": 10,
+                "titleLimit":1000
+              
+            },
+            "scale": {
+              "type": "threshold",
+              "domain": [20000,40000,60000, 80000, 100000, 120000],
+              "range": ["#94C58C","#64AD62", "#429B46", "#1A8828", "#0A6921", "#094F01", "#163832"]
+              }},
+    "tooltip": [
+      {"field": "hqstate", "type": "nominal", "title":"State"},
+      {"field": "TotalCount", "type": "quantitative", "title": "Profits in 100 Million USD"}
+      
+    ]
+  }
 }
