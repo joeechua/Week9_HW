@@ -1,12 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  
-  "background":null,
   "vconcat": [
     {
       "title": {"text":"Fortune 500 Companies in Each State","fontSize":25,"font": "Serif"},
-      "width": "container",
-      "height": 500,
+      "width": 500,
+      "height": 300,
       "projection": {"type": "albersUsa"},
         
       "layer": [
@@ -37,8 +35,7 @@
                     "key": "State",
                     "fields": ["Number of Companies"]
                   }
-                },
-                {"filter": "isValid(datum.State)"}
+                }
 
           ],
           "encoding": {
