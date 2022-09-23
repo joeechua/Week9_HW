@@ -37,7 +37,8 @@
                     "key": "State",
                     "fields": ["Number of Companies"]
                   }
-                }
+                },
+                {"filter": "isValid(datum.State)"}
 
           ],
           "encoding": {
