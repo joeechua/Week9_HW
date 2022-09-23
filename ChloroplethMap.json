@@ -18,7 +18,7 @@
               }
             ],
             "data": {
-                "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
+                "url": "https://joeechua.github.io/Week9_HW/US_Map.json",
                 "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
             },
             
@@ -31,7 +31,7 @@
                     "lookup": "properties.STATE_NAME",
                     "from": {
                       "data": {
-                        "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_state_count.csv",
+                        "url": "https://joeechua.github.io/Week9_HW/fortune_500_state_count.csv",
                         "format": {"parse": {"Number of Companies": "number", "State":"string"}}                      
                       },
                       "key": "State",
