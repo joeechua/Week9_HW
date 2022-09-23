@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": {"text":"Fortune 500 Companies in Each US State","fontSize":15,"font": "Serif"},
+    "title": "Fortune 500 Companies in Each US State",
     "width": 800,
     "height": 400,
     "projection": {"type": "albersUsa"},
