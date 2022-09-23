@@ -35,7 +35,7 @@
                         "format": {"parse": {"Number of Companies": "number", "State":"string"}}                      
                       },
                       "key": "State",
-                      "fields": ["Number of Companies","VEP_Turnout"]
+                      "fields": ["Number of Companies"]
                     }
                   }
   
